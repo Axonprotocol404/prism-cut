@@ -12,6 +12,12 @@
 // Outside the grader's container, MAKEFUN_OUTPUT_DIR stands in for /output:
 //   mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
 
+// ENTRY FLOW (how this directory becomes a competition entry):
+//   1. game/ is a plain static bundle: game/index.html plus ES modules under game/src/, loaded
+//      directly by a desktop browser offline (no bundler, no library, no network).
+//   2. This program copies that whole game/ folder (and screenshots/) verbatim into /output.
+//   3. It then writes /output/dossier.json — the judge-readable summary of the entry, built by
+//      the vendored make.fun library from what is now in /output.
 import { cpSync, existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -20,6 +26,7 @@ import { buildDossier } from './vendor/makefun-game.ts';
 const here = fileURLToPath(new URL('.', import.meta.url));
 const out = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
 
+// Create /output (idempotent), then copy the static game/ and any screenshots/ into it.
 mkdirSync(out, { recursive: true });
 cpSync(join(here, 'game'), join(out, 'game'), { recursive: true });
 mkdirSync(join(out, 'screenshots'), { recursive: true });
