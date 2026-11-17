@@ -27,6 +27,7 @@ function cachedLabel(prefix) {
   };
 }
 
+// glow pass: additive layer for the neon bloom
 export function createRenderer(canvas) {
   const context = canvas.getContext('2d');
   const view = { scale: 1, x: 0, y: 0 };

@@ -1,3 +1,4 @@
+// input: keyboard + pointer, one-shot presses
 // Keyboard and pointer input. Held arrow/WASD keys steer the orb in 2D; a held pointer steers
 // directly (the orb seeks the pointer's position). One-shot presses (start or restart, pause)
 // are queued as bit flags and taken once by the loop, so a press between two frames is never

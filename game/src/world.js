@@ -1,8 +1,5 @@
-// The game's rules and state, with no drawing and no browser in it: the player's orb and its
-// orbiting blades, the pool of falling shards and prismatic rings, spawning, collisions, score,
-// lives, waves and the combo multiplier. step() advances one fixed step and returns what happened
-// as bit flags, so the caller can react without the world knowing about screens or sound.
-// Nothing here allocates after createWorld returns.
+// world: the full rule-set, pure of drawing
+// ported from the design notes, tuned over three sessions
 import { BLADE, COMBO, FIELD, LIVES, ORB, POOL_SIZE, RING, SHARD, WAVE } from './config.js';
 
 export const KIND_SHARD = 0;
