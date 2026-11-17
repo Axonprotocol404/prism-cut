@@ -1,13 +1,15 @@
-// Every tuning number and colour in one place. The playfield is a fixed 1280x720 logical area;
-// the renderer scales it to the window, so no rule below depends on the screen size.
+// Prism Cut keeps every tuning knob here. Other modules import only this file for
+// numbers and colours, so rebalancing the game never means hunting through code.
+// The playfield is a fixed 1280x720 logical space; the renderer scales it to fit
+// whatever window it lives in, so none of the rules below care about screen size.
 
-// palette: neon on dark
+// Logical playfield dimensions everything else is tuned against.
 export const FIELD = { width: 1280, height: 720 };
 
-/** The simulation's fixed step, in seconds: 60 updates a second whatever the display's rate. */
+// Fixed simulation step: exactly 60 updates per second regardless of display rate.
 export const STEP = 1 / 60;
 
-/** The orb the player steers, orbited by up to three blades. */
+// The player's orb: size, thrust, top speed, friction and where it starts each run.
 export const ORB = {
   radius: 14,
   accel: 2400,
@@ -16,7 +18,8 @@ export const ORB = {
   start: { x: 640, y: 460 },
 };
 
-/** A blade orbits the orb and slices shapes; each caught ring adds another blade. */
+// Blades orbit the orb and do the cutting; each caught ring adds one more,
+// and the whole formation spins a bit faster with every extra blade.
 export const BLADE = {
   length: 46,
   width: 7,
@@ -25,7 +28,8 @@ export const BLADE = {
   gap: 0.26,
 };
 
-/** Shards fall from the top; slicing scores, touching one's core costs a life. */
+// Falling shards: size range, fall speed that ramps with the wave, randomised
+// polygon sides and spin, plus how often they spawn (tightening each wave).
 export const SHARD = {
   minRadius: 16,
   maxRadius: 34,
@@ -38,7 +42,7 @@ export const SHARD = {
   minInterval: 0.16,
 };
 
-/** A prismatic ring: catch it with the orb (not the blades) to add a blade. */
+// Gold rings: catch one with the orb's body (not the blades) for points and a new blade.
 export const RING = {
   radius: 22,
   speed: 165,
@@ -47,16 +51,19 @@ export const RING = {
   intervalJitter: 4,
 };
 
-/** Waves ramp the pace; a wave ends when its quota of shards is sliced. */
+// Waves set the pace: slice the quota to advance, cap out at the max wave.
 export const WAVE = { quota: 8, ramp: 1.18, max: 9 };
 
+// How many hits the player can take before the run ends.
 export const LIVES = 3;
 
-/** Consecutive slices within the window grow the combo multiplier. */
+// Chain slices inside the window to build a multiplier; miss and it resets to 1.
 export const COMBO = { window: 2.2, step: 0.5, max: 8 };
 
+// Upper bound on the object pool; the world never allocates shapes mid-run.
 export const POOL_SIZE = 72;
 
+// Neon-on-dark palette shared by the renderer, HUD and overlays.
 export const PALETTE = {
   backdrop: '#0b0d16',
   vignette: '#05060c',
@@ -71,9 +78,14 @@ export const PALETTE = {
   muted: '#8b93a3',
   panel: 'rgba(11, 13, 22, 0.72)',
   combo: '#c084fc',
+  spark: '#ffe08a',
 };
 
+// UI font stack used by every text call on the canvas.
 export const FONT = 'system-ui, -apple-system, "Segoe UI", sans-serif';
 
-/** Where the best score is kept between visits (this browser only). */
+// localStorage slot that remembers the best score between visits.
 export const BEST_KEY = 'prism-cut.best';
+
+// Spark particle tuning for the slice burst the renderer emits.
+export const SPARKS = { count: 10, speed: 220, lifetime: 0.4, gravity: 300 };
