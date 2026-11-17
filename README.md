@@ -1,0 +1,56 @@
+# Prism Cut
+
+[![Play](https://img.shields.io/badge/play-in%20browser-8b5cf6)](game/index.html)
+[![Engine](https://img.shields.io/badge/engine-canvas%202D%20·%20no%20dependencies-06b6d4)](game/src)
+[![License](https://img.shields.io/badge/license-GPL--3.0--only-green)](LICENSE)
+
+A neon arcade survival game in a single canvas. You are a prism orb with two orbiting
+blades; falling shards must be cut by the blades, gold rings must be caught by the orb
+itself. Waves escalate, blades multiply when you catch rings, and one touch ends the run.
+
+Everything is plain static files — no library, no build step, no network request.
+
+## Play
+
+```bash
+node serve.ts            # then open http://localhost:8080
+```
+
+Or open `game/index.html` directly in a desktop browser.
+
+## How it works
+
+- `game/src/config.js` — every tuning constant and colour in one place
+- `game/src/world.js` — the rules: orb, blades, shards, rings, collisions, score, waves
+- `game/src/render.js` — drawing only, 1280x720 logical playfield scaled to the window
+- `game/src/input.js` — keyboard (arrows/WASD) and pointer steering
+- `game/src/main.js` — boot and the fixed-timestep loop
+- `game/src/shots.js` — deterministic screenshot scenes (`?shot=start|play|end&seed=N`)
+
+## Controls
+
+| Input | Action |
+| --- | --- |
+| Arrow keys / WASD | Steer the orb |
+| Pointer (hold) | Orb seeks the pointer |
+| Space / Enter | Start, restart |
+| P | Pause |
+
+## Screenshots
+
+`?shot=start&seed=7`, `?shot=play&seed=7`, `?shot=end&seed=7` are driven by an autopilot
+that plays the real rules forward from a seeded world, so the same seed always draws the
+same frame.
+
+## Entry
+
+`main.ts` copies `game/` and `screenshots/` to `/output` and writes `dossier.json` with the
+vendored make.fun library. Run it outside the grader's container with:
+
+```bash
+mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
+```
+
+## License
+
+GPL-3.0-only — see [LICENSE](LICENSE).
