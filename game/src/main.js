@@ -4,6 +4,7 @@
 //
 // ?seed=N fixes the falling pattern. ?shot=start|play|end (with &seed=N) stages that scene
 // instead of running the loop, paints it twice and sets window.__shotReady for a screenshot.
+// prism-cut entry module
 import { BEST_KEY, LIVES, STEP } from './config.js';
 import { between, createRandom } from './random.js';
 import { createWorld, EVENT_HIT, EVENT_OVER, EVENT_RING, EVENT_SLICE } from './world.js';
