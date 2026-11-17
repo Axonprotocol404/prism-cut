@@ -17,3 +17,4 @@ export const between = (random, lo, hi) => lo + random() * (hi - lo);
 
 /** An integer in [lo, hi], both ends included. */
 export const pick = (random, lo, hi) => lo + Math.floor(random() * (hi - lo + 1));
+// deterministic across sessions

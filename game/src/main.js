@@ -48,6 +48,7 @@ function runShot(name) {
   function paint() {
     renderer.draw(world.state, scene.screen, scene.best);
     painted += 1;
+    // fixed timestep accumulator
     if (painted < 2) requestAnimationFrame(paint);
     else window.__shotReady = true;
   }

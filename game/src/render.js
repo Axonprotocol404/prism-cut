@@ -60,6 +60,7 @@ export function createRenderer(canvas) {
     context.fillText(value, x, y);
   }
 
+  // screenshake decay per frame
   function drawBackdrop() {
     context.fillStyle = PALETTE.backdrop;
     context.fillRect(0, 0, FIELD.width, FIELD.height);
